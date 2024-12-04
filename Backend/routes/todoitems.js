@@ -30,16 +30,14 @@ useRouter.post('/addTodo', (req, res) => {
 useRouter.put('/editTodo/:id', async (req, res) => {
     const id = req.params.id;
     const { title } = req.body;
-
-    // Validate the input
+    
     if (!title) {
         return res.status(400).json({
             success: false,
             message: 'Title is required',
         });
     }
-
-    // Check if the ID is valid
+    
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
             success: false,
@@ -48,11 +46,11 @@ useRouter.put('/editTodo/:id', async (req, res) => {
     }
 
     try {
-        // Find the todo by ID and update the title
+        
         const updatedTodo = await todoModel.findByIdAndUpdate(
             id,
-            { title: title }, // Fields to update
-            { new: true } // Return the updated document
+            { title: title }, 
+            { new: true } 
         );
 
         if (!updatedTodo) {
