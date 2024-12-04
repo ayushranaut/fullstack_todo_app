@@ -1,8 +1,10 @@
 const express = require('express');
+require('dotenv').config()
+console.log(process.env.MONGO_URL)
 const mongoose = require('mongoose');
 const app = express();
 const { useRouter } = require('./routes/todoitems');
-mongoose.connect("mongodb+srv://ayush:RcvvhqD1u1visVR3@cluster0.mlr6n.mongodb.net/TODO_App")
+mongoose.connect(process.env.MONGO_URL)
 
 app.use(express.json());
 
