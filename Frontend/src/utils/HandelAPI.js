@@ -13,5 +13,18 @@ const getallTodos = async (setTodos) => {
 };
 
 
+ const addTodo = (text, setText, setTodos) => {
+    axios.post(`${BaseURL}/addTodo`, { title: text })
+        .then((response) => {
+            console.log(response.data);
+            setText("");  // Clear input after success
+            getallTodos(setTodos);  // Refresh todos list
+        })
+        .catch((error) => {
+            console.error("Error adding todo:", error);
+        });
+};
 
-export {getallTodos}
+
+
+export {getallTodos ,addTodo}
