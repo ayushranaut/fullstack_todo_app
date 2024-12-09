@@ -5,6 +5,10 @@ const mongoose = require('mongoose');
 const app = express();
 const { useRouter } = require('./routes/todoitems');
 mongoose.connect(process.env.MONGO_URL)
+const cors = require('cors');
+
+app.use(cors({ origin: 'http://localhost:5173' }));
+
 
 app.use(express.json());
 
