@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from "react";
 import TodoItems from "./TodoItems";
-import { getallTodos, addTodo } from "./utils/HandelAPI";
+import { getallTodos, addTodo, updateTodo } from "./utils/HandelAPI";
 
 export default function TODO() {
   const [todo, setTodos] = useState([]);
   const [text, setText] = useState("");
+  const [isUpdate, setUpdate] = useState(false);
+  const [toDoId, setTodoId] = useState("");
 
   useEffect(() => {
     getallTodos(setTodos);
   }, []);
+
+  const updateMode = (_id, title) => {
+    setUpdate(true);
+    setText(title); 
+    setTodoId(_id);
+  };
 
   return (
     <div>
@@ -24,9 +32,13 @@ export default function TODO() {
         />
         <button
           className="font-extrabold bg-orange-500 rounded-r-full w-20 h-10 text-white p-2"
-          onClick={() => addTodo(text, setText, setTodos)}
+          onClick={
+            isUpdate
+              ? () => updateTodo(toDoId, text, setText, setTodos, setUpdate)
+              : () => addTodo(text, setText, setTodos)
+          }
         >
-          Add
+          {isUpdate ? "Update" : "Add"}
         </button>
       </div>
 
@@ -34,7 +46,11 @@ export default function TODO() {
       {todo.length > 0 ? (
         <div>
           {todo.map((item) => (
-            <TodoItems key={item._id} text={item.title} />
+            <TodoItems
+              key={item._id}
+              text={item.title} 
+              updateMode={() => updateMode(item._id, item.title)}
+            />
           ))}
         </div>
       ) : (

@@ -17,8 +17,8 @@ const getallTodos = async (setTodos) => {
     axios.post(`${BaseURL}/addTodo`, { title: text })
         .then((response) => {
             console.log(response.data);
-            setText("");  // Clear input after success
-            getallTodos(setTodos);  // Refresh todos list
+            setText("");  
+            getallTodos(setTodos); 
         })
         .catch((error) => {
             console.error("Error adding todo:", error);
@@ -26,5 +26,18 @@ const getallTodos = async (setTodos) => {
 };
 
 
+const updateTodo = (toDoId, title, setText, setTodos, setUpdate) => {
+    axios.put(`${BaseURL}/editTodo/${toDoId}`, { title }) 
+        .then((response) => {
+            console.log(response.data);
+            setText("");  
+            setUpdate(false);
+            getallTodos(setTodos); 
+        })
+        .catch((error) => {
+            console.error("Error updating todo:", error);
+        });
+};
 
-export {getallTodos ,addTodo}
+
+export {getallTodos ,addTodo ,updateTodo}
