@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TodoItems from "./TodoItems";
-import { getallTodos, addTodo, updateTodo } from "./utils/HandelAPI";
+import { getallTodos, addTodo, updateTodo ,deleteTodo } from "./utils/HandelAPI";
 
 export default function TODO() {
   const [todo, setTodos] = useState([]);
@@ -50,6 +50,8 @@ export default function TODO() {
               key={item._id}
               text={item.title} 
               updateMode={() => updateMode(item._id, item.title)}
+              onDelete={() => deleteTodo(item._id, setTodos)} 
+             
             />
           ))}
         </div>

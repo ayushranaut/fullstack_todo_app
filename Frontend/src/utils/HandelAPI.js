@@ -39,5 +39,17 @@ const updateTodo = (toDoId, title, setText, setTodos, setUpdate) => {
         });
 };
 
+const deleteTodo = (toDoId, setTodos) => {
+    axios.delete(`${BaseURL}/deleteTodo/${toDoId}`) 
+        .then((response) => {
+            console.log(response.data);
+            getallTodos(setTodos); 
+        })
+        .catch((error) => {
+            console.error("Error deleting todo:", error);
+        });
+};
 
-export {getallTodos ,addTodo ,updateTodo}
+
+
+export {getallTodos ,addTodo ,updateTodo ,deleteTodo}
